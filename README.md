@@ -1,3 +1,8 @@
+Install this fork:
+```bash
+pip install git+https://github.com/Tweak4141/abandonware-pybluez.git#egg=pybluez
+```
+
 PyBluez
 =======
 
