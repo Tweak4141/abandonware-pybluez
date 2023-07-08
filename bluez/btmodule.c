@@ -2549,7 +2549,7 @@ bt_hci_filter_new(PyObject *self, PyObject *args)
     struct hci_filter flt;
     int len = sizeof(flt);
     hci_filter_clear( &flt );
-    return Py_BuildValue("s#", (char*)&flt, len);
+    return Py_BuildValue("y#", (char*)&flt, len);
 }
 PyDoc_STRVAR(bt_hci_filter_new_doc,
 "hci_filter_new()\n\
