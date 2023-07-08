@@ -2272,14 +2272,14 @@ static PyObject * bt_hci_filter_ ## name (PyObject *self, PyObject *args )\
     char *param; \
     Py_ssize_t len; \
     int arg; \
-    if( !PyArg_ParseTuple(args,"s#i", &param, &len, &arg) ) \
+    if( !PyArg_ParseTuple(args,"y#i", &param, &len, &arg) ) \
         return 0; \
     if( len != sizeof(struct hci_filter) ) { \
         PyErr_SetString(PyExc_ValueError, "bad filter"); \
         return 0; \
     } \
     hci_filter_ ## name ( arg, (struct hci_filter*)param ); \
-    return PyUnicode_FromStringAndSize(param, len); \
+    return PyBytes_FromStringAndSize(param, len); \
 } \
 PyDoc_STRVAR(bt_hci_filter_ ## name ## _doc, docstring);
 
@@ -2301,14 +2301,14 @@ static PyObject * bt_hci_filter_ ## name (PyObject *self, PyObject *args )\
 { \
     char *param; \
     Py_ssize_t len; \
-    if( !PyArg_ParseTuple(args,"s#", &param, &len) ) \
+    if( !PyArg_ParseTuple(args,"y#", &param, &len) ) \
         return 0; \
     if( len != sizeof(struct hci_filter) ) { \
        PyErr_SetString(PyExc_ValueError, "bad filter"); \
         return 0; \
     } \
     hci_filter_ ## name ( (struct hci_filter*)param ); \
-    return PyUnicode_FromStringAndSize(param, len); \
+    return PyBytes_FromStringAndSize(param, len); \
 } \
 PyDoc_STRVAR(bt_hci_filter_ ## name ## _doc, docstring);
 
@@ -2363,7 +2363,7 @@ bt_ba2str(PyObject *self, PyObject *args)
     char *data=NULL;
     Py_ssize_t len=0;
     char ba_str[19] = {0};
-    if (!PyArg_ParseTuple(args, "s#", &data, &len)) return 0;
+    if (!PyArg_ParseTuple(args, "y#", &data, &len)) return 0;
     ba2str((bdaddr_t*)data, ba_str);
     return PyUnicode_FromString( ba_str );
 //    return Py_BuildValue("s#", ba_str, 18);
